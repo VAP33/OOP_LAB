@@ -1,26 +1,35 @@
 #include <iostream>
 using namespace std;
-void readNumbers(double &num1, double &num2) {
-cout << "Enter first number: ";
-cin >> num1;
-cout << "Enter second number: ";
-cin >> num2;
+
+double calculatePercentage(double obtained, double total) {
+    if (total == 0) {
+        throw "Error: Total marks cannot be zero!";
+    }
+    if (obtained > total) {
+        throw "Error: Obtained marks cannot be greater than total marks!";
+    }
+    if (obtained < 0 || total < 0) {
+        throw "Error: Marks cannot be negative!";
+    }
+    return (obtained / total) * 100;
 }
-double divide(double num1, double num2) {
-if (num2 == 0) {
-throw "Error: Division by zero is not allowed!";
-}
-return num1 / num2;
-}
+
 int main() {
-double a, b, result;
-readNumbers(a, b);
-try {
-result = divide(a, b);
-cout << "Result of division: " << result << endl;
-}
-catch (const char* msg) {
-cerr << msg << endl;
-}
-return 0;
+    double obtained, total, percentage;
+
+    cout << "Enter obtained marks: ";
+    cin >> obtained;
+    cout << "Enter total marks: ";
+    cin >> total;
+
+    try {
+        percentage = calculatePercentage(obtained, total);
+        cout << "Percentage = " << percentage << "%" << endl;
+    }
+    catch (const char* msg) {
+        cerr << "Exception caught! " << msg << endl;
+    }
+
+    cout << "--- Program finished safely ---" << endl;
+    return 0;
 }
